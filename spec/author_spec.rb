@@ -1,6 +1,7 @@
 require 'rspec'
 require './lib/book'
 require './lib/author'
+require 'pry'
 
 RSpec.describe Author do
 
@@ -10,22 +11,24 @@ RSpec.describe Author do
     expect(charlotte_bronte).to be_a(Author)
   end
 
-  xit 'has attributes' do
+  it 'has attributes' do
     charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
     
-    expect(charlotte_bronte.name).to eq("Charlotee Bronte")
+    expect(charlotte_bronte.name).to eq("Charlotte Bronte")
     expect(charlotte_bronte.books).to eq([])
   end
 
-  xit 'can write books' do
+  it 'can write books' do
     charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
     
-    jane_eyre = charlotte_bronte.write("Jane Eyre", "October 16, 1874")
-    expect(jane_eyre.class).to eq(Book)
-    expect(jane_eyre.title).to eq("Jane Eyre")
+    @jane_eyre = charlotte_bronte.write("Jane Eyre", "October 16, 1874")
+    expect(@jane_eyre.class).to eq(Book)
+    expect(@jane_eyre.title).to eq("Jane Eyre")
 
-    villette = charlotte_bronte.write("Villette", "1853")
-    expect(charlotte_bronte.books).to eq([jane_eyre, villette])
+    binding.pry
+
+    @villette = charlotte_bronte.write("Villette", "1853")
+    expect(charlotte_bronte.books).to eq([@jane_eyre, @villette])
 
 
   end
